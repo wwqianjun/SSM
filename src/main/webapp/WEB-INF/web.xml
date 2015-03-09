@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<display-name>ssm</display-name>
+
+<!-- 	<listener>
+		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>logbackConfigLocation</param-name>
+		<param-value>WEB-INF/classes/b2g-logback.xml</param-value>
+	</context-param> -->
+
+	<listener>
+		<description>spring Listener</description>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 防止spring内存溢出监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+	        classpath:spring.xml,
+	        classpath:spring-mybatis.xml
+        </param-value>
+	</context-param>
+	
+	<!-- 字符集过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- session 共享 -->
+
+	<!-- <filter> -->
+	<!-- <filter-name>redisSessionShareFilter</filter-name> -->
+	<!-- <filter-class>com.travelzen.b2g.web.filter.RedisSessionFilter</filter-class> -->
+	<!-- </filter> -->
+	<!-- <filter-mapping> -->
+	<!-- <filter-name>redisSessionShareFilter</filter-name> -->
+	<!-- <url-pattern>/*</url-pattern> -->
+	<!-- </filter-mapping> -->
+
+	<!-- 配置spiring security -->
+<!-- 	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+	<!-- 配置spiring security结束 -->
+
+	<!-- spring mvc -->
+	<servlet>
+		<servlet-name>springDispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springDispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- 默认首页 -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.ftl</welcome-file>
+	</welcome-file-list>
+
+	<!-- 配置session超时时间，单位分钟 -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+
+	<!-- 404 页面不存在错误 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/msg/404_error</location>
+	</error-page>
+	<!-- 500 服务器内部错误 -->
+	<error-page>
+		<error-code>500</error-code>
+		<location>/msg/500_error</location>
+	</error-page>
+
+</web-app> 

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+http://www.springframework.org/schema/mvc 
+http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+	<context:component-scan base-package="qianjun.controller" />
+
+	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" /><!-- json转换器 -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<!-- 
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp" />
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<value>32505856</value>上传文件大小限制为31M，31*1024*1024
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean> 
+	-->
+	
+	<!-- freemarker config -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/ftl"></property>
+    	<property name="freemarkerSettings"> 
+			<props> 
+				<prop key="template_update_delay">1</prop> 
+				<prop key="defaultEncoding">UTF-8</prop> 
+				<prop key="url_escaping_charset">UTF-8</prop> 
+				<prop key="locale">zh_CN</prop> 
+				<prop key="boolean_format">true,false</prop> 
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop> 
+				<prop key="date_format">yyyy-MM-dd</prop> 
+				<prop key="time_format">HH:mm:ss</prop> 
+				<prop key="number_format">0.######</prop> 
+				<prop key="whitespace_stripping">true</prop> 
+			</props> 
+		</property> 
+    </bean>
+     
+    <!-- 
+      View resolvers can also be configured with ResourceBundles or XML files. If you need
+      different view resolving based on Locale, you have to use the resource bundle resolver.
+    -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+	    <property name="cache" value="false" />
+		<property name="prefix" value="" />
+		<property name="suffix" value=".html" />
+		<!-- FreeMarker的编码设置 -->
+		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="exposeRequestAttributes" value="false" />
+		<property name="exposeSessionAttributes" value="false" />
+		<property name="exposeSpringMacroHelpers" value="true" /> 
+    </bean>
+ 
+    
+
+</beans>
