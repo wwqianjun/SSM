@@ -6,36 +6,38 @@
 
 	<display-name>ssm</display-name>
 
-<!-- 	<listener>
-		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
-	</listener>
+	<!-- <listener> <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class> 
+		</listener> <context-param> <param-name>logbackConfigLocation</param-name> 
+		<param-value>WEB-INF/classes/b2g-logback.xml</param-value> </context-param> -->
+
 	<context-param>
-		<param-name>logbackConfigLocation</param-name>
-		<param-value>WEB-INF/classes/b2g-logback.xml</param-value>
-	</context-param> -->
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:spring-security.xml,
+	        classpath:spring.xml,
+	        classpath:spring-mybatis.xml
+        </param-value>
+	</context-param>
 
+	<!-- 配置启动 SpringIOC 容器的 Listener -->
 	<listener>
-		<description>spring Listener</description>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-	<!-- 防止spring内存溢出监听器 -->
-	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 	
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-	        classpath:spring.xml,
-	        classpath:spring-mybatis.xml
-        </param-value>
-	</context-param>
-	
+	<!-- 防止spring内存溢出监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+
+
 	<!-- 字符集过滤器 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -66,14 +68,14 @@
 	<!-- </filter-mapping> -->
 
 	<!-- 配置spiring security -->
-<!-- 	<filter>
+	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 	<!-- 配置spiring security结束 -->
 
 	<!-- spring mvc -->

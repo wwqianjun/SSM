@@ -1,6 +1,21 @@
 package qianjun.rdm.model;
 
+import java.util.List;
+
 public class User {
+	//=========================
+	private List<RoleUser> roleUsers ;
+	
+	
+	public List<RoleUser> getRoleUsers() {
+		return roleUsers;
+	}
+
+	public void setRoleUsers(List<RoleUser> roleUsers) {
+		this.roleUsers = roleUsers;
+	}
+
+	//=========================
     private Integer id;
 
     private String name;

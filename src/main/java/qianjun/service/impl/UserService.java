@@ -1,5 +1,7 @@
 package qianjun.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,14 @@ public class UserService implements IUserService {
 
 	public int addUser(User user) {
 		return userMapper.insert(user);
+	}
+
+	public List<User> getAllUser() {
+		return userMapper.getAllUser();
+	}
+
+	public List<User> getAllUserWithRole() {
+		return userMapper.getAllUserWithRole();
 	}
 
 }
