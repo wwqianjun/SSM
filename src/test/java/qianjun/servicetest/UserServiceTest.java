@@ -28,7 +28,7 @@ public class UserServiceTest {
 	@Test
 	public void testQueryUserById(){
 		User user = userService.queryUserById(2);
-		//System.out.println(user.getName());
+//		System.out.println(user.getName());
 		LOG.debug("用户名{"+user.getName()+"}");
 	}
 	
@@ -46,7 +46,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void testProxy(){
-		
+		System.out.println();
 		User user = userService.queryUserById(2);
 		//System.out.println(user.getName());
 		LOG.debug("用户名{"+user.getName()+"}");
