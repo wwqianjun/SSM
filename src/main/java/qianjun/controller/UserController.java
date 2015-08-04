@@ -55,7 +55,7 @@ public class UserController {
 	}
 	
 	//==========================================================
-	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/index", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
  
 	  ModelAndView model = new ModelAndView();

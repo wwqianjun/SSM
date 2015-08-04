@@ -1,12 +1,18 @@
 <html>
+<head>
+<script language="text/javaScript" src="resources/js/jquery-1.10.2.js">
+</script>
+</head>
 <body>
+<css>
+</css>
 	<h1>Title : ${title}</h1>
 	<h1>Message : ${message}</h1>
  
 	<c:url value="/j_spring_security_logout" var="logoutUrl" />
 	<form action="${logoutUrl!}" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
+		<input type="hidden" name="${(_csrf.parameterName)!}"
+			value="${(_csrf.token)!}" />
 	</form>
 	<script>
 		function formSubmit() {
@@ -20,6 +26,13 @@
 				href="javascript:formSubmit()"> Logout</a>
 		</h2>
 	</#if>
- 
+	
+	<a href="javascript:click()"><button color="red" id="ajaxBtn">请点我</button>
+	</a>
+ <script >
+		function click() {
+				alert("Hello World!");
+		}
+</script>
 </body>
 </html>

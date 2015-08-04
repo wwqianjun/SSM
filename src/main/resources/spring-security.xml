@@ -5,6 +5,8 @@
             http://www.springframework.org/schema/security   
             http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+	<security:http pattern="/resources/js/**" security="none" />
+    <security:http pattern="/resources/**/**" security="none" />
 <!-- 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
 			p:paramName="lang" />

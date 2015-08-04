@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller  
-@RequestMapping("auth")  
+@RequestMapping("/auth")  
 public class LoginLogoutController {  
   
     protected static Logger logger = Logger.getLogger(LoginLogoutController.class);  
