@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import qianjun.rdm.dao.UserMapper;
+import qianjun.rdm.mapper.UserMapper;
 import qianjun.rdm.model.User;
 import qianjun.service.IUserService;
 

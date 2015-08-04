@@ -1,4 +1,4 @@
-package qianjun.rdm.dao;
+package qianjun.rdm.mapper;
 
 import qianjun.rdm.model.RoleUser;
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="qianjun.rdm.mapper.SequenceMapper" >
+	<select id="getNextSequence" resultType="long" parameterType="map">
+		select next_seq_value(#{sequenceName}, #{allotment})
+	</select>
+	
+	<select id="getSeqMaxValue" resultType="long" parameterType="string">
+		select max_value from sequence a where a.seq_name = #{seqName}
+	</select>
+</mapper>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="qianjun.rdm.dao.RoleMapper" >
+<mapper namespace="qianjun.rdm.mapper.RoleMapper" >
   <resultMap id="BaseResultMap" type="qianjun.rdm.model.Role" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="right" property="right" jdbcType="INTEGER" />
+    <result column="rights" property="right" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, right, url
+    id, rights, url
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,7 +20,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="qianjun.rdm.model.Role" >
-    insert into role (id, right, url
+    insert into role (id, rights, url
       )
     values (#{id,jdbcType=INTEGER}, #{right,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}
       )
@@ -32,7 +32,7 @@
         id,
       </if>
       <if test="right != null" >
-        right,
+        rights,
       </if>
       <if test="url != null" >
         url,
@@ -54,7 +54,7 @@
     update role
     <set >
       <if test="right != null" >
-        right = #{right,jdbcType=INTEGER},
+        rights = #{right,jdbcType=INTEGER},
       </if>
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
@@ -64,7 +64,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="qianjun.rdm.model.Role" >
     update role
-    set right = #{right,jdbcType=INTEGER},
+    set rights = #{right,jdbcType=INTEGER},
       url = #{url,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

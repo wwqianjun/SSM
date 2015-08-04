@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+<!-- 	驱动程序 -->
+	<classPathEntry location="/home/qianjun/.gradle/caches/modules-2/files-2.1/postgresql/postgresql/9.1-901.jdbc4/153f2f92a786f12fc111d0111f709012df87c808/postgresql-9.1-901.jdbc4.jar" />
+	
+	<context id="context1" targetRuntime="MyBatis3" defaultModelType="conditional">
+
+		<!-- 是否取消注释 --> 
+		<property name="suppressAllComments" value="true" />
+
+		<property name="targetPackage" value="mybatis.gen" />
+		<property name="targetProject" value="cruise-thrift-rdms/src/main/resources" />
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+<!-- 		数据库链接 -->
+		<jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://192.168.161.28:5432/dev"
+			userId="dev" password="bavBauft2" />
+
+<!-- 		java entity生成位置 -->
+		<javaModelGenerator targetPackage="com.travelzen.cruise.rdms.entity.gen"
+			targetProject="cruise-thrift-rdms/src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+	
+<!-- 		mapper配置文件生成位置 -->
+		<sqlMapGenerator targetPackage="mybatis.gen"
+			targetProject="cruise-thrift-rdms/src/main/resources">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+<!-- 		mapper生成位置 -->
+		<javaClientGenerator
+			targetPackage="com.travelzen.cruise.rdms.mapper.gen"
+			targetProject="cruise-thrift-rdms/src/main/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+		
+<!-- 		表以及关系配置 
+
+		<table tableName="t_provider_line" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_provider_cruise_group" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_operator_cruise_group" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_operator_line" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_o_cruise_order" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_o_contact" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_o_passenger" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_o_period" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_o_cabin_price_snap" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_o_group_cancle_apply" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_o_price_change_log" schema="cruise" delimitIdentifiers="true"></table>
+		<table tableName="t_o_order_pay" schema="cruise" delimitIdentifiers="true"></table>
+-->
+		<table tableName="t_operator_cruise_group" schema="cruise" delimitIdentifiers="true"></table>
+	</context>
+</generatorConfiguration>
