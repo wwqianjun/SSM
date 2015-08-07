@@ -1,6 +1,9 @@
 package qianjun.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +19,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import qianjun.common.AjaxResponse;
+import qianjun.common.ControllerUtils;
 import qianjun.rdm.model.User;
 import qianjun.service.IUserService;
+import qianjun.service.dto.WangQiQiDTO;
 
 @Controller
 //@RequestMapping("/userController")
@@ -52,6 +59,20 @@ public class UserController {
 		user.setPassword("123456");
 
 		userSerive.addUser(user);
+	}
+	
+	//==========================================================
+	//  Ajax之旅
+	//==========================================================
+	@RequestMapping("unSyn")
+	@ResponseBody
+	public AjaxResponse unSyn(String value){
+		System.out.println(value);
+		WangQiQiDTO obj = new WangQiQiDTO("王琪琪",20);
+		 
+		List<WangQiQiDTO> girls = new ArrayList<WangQiQiDTO>();
+		obj.setGirls(girls);
+		return ControllerUtils.returnAjaxSuccessResponseWithData(obj);
 	}
 	
 	//==========================================================
