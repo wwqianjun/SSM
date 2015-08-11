@@ -1,0 +1,114 @@
+<#--定义html文件中head标签里的内容 <#nested/>为附加内容-->
+<#--
+	jsFiles从服务器引入的js文件，
+	localJsFiles从当前项目引入的文件,
+	remoteJsFiles是从远程引入的js文件，例如百度地图,
+	cssFiles服务器引入的css文件,
+	localCssFiles从当前项目引入的css文件,
+	headTag是否在宏内添加<head标签>默认为false不添加
+-->
+<#macro headInclude jsFiles=[] localJsFiles=[] remoteJsFiles=[] cssFiles=[] localCssFiles=[] headTag = false>
+	<#if headTag>
+		<head>
+	</#if>
+	<#assign requestUrl = Request.req.requestUri />
+	<#--判断当前请求是否为Https请求-->
+	<#if (httpsUrls?? && httpsUrls!='') && (httpsUrls?index_of(requestUrl) gt -1)>
+		<#assign host = httpsHost />
+		<#assign requestPro = "https:"/>
+		<#if httpsHosts?? && httpsHosts!=''>
+			<#assign hosts = httpsHosts?split(",")/>
+		<#else>
+			<#assign hosts = [host] />
+		</#if>
+	<#else>
+	<#assign requestPro = "http:"/>
+		<#if hosts?? && hosts!=''>
+			<#assign hosts = hosts?split(",")/>
+		<#else>
+			<#assign hosts = [host] />
+		</#if>
+	</#if>
+	
+	
+	<#assign hostSize = hosts?size />
+	<#assign staticCss = ["resources/css/jquery-ui-1.10.3.custom.css","resources/css/ssm.css","resources/css/kendo.common.min.css","resources/css/kendo.this.css"] />
+	
+	<#list 0..staticCss?size-1 as index>
+		<#assign currentHost = (hosts[index%hostSize])!host />
+		<#assign currentCss = staticCss[index] />
+		<#if index == 1>
+			<link rel="stylesheet" href="${currentHost}${currentCss}" media="all" />
+		<#else>
+			<link rel="stylesheet" href="${currentHost}${currentCss}"/>
+		</#if>
+	</#list>
+	
+	<#--<link rel="stylesheet" href="${host}/css/smoothness/jquery-ui-1.10.3.custom.css"/>
+	<link rel="stylesheet" href="${host}/css/b2g.css" media="all" />
+	<link rel="stylesheet" href="${host}/css/kendo.common.min.css" />
+	<link rel="stylesheet" href="${host}/css/kendo.b2g.css" / -->
+	<#if cssFiles?size gt 0>
+		<#list 0..cssFiles?size-1 as index>
+			<#assign currentHost = hosts[index%hostSize]!host />
+			<#assign currentCssFile = cssFiles[index] />
+			<link rel="stylesheet" href="${currentHost}/css/${currentCssFile}"/>
+		</#list>
+	</#if>
+	<#--list cssFiles as css>
+		<link rel="stylesheet" href="${host}/css/${css}"/>
+	</#list-->
+	<#if (httpsUrls?? && httpsUrls!='') && (httpsUrls?index_of(requestUrl) gt -1)>
+		<#assign localPath = httpsContext />
+	<#else>
+		<#assign localPath = httpContext />
+	</#if>
+	<#list localCssFiles as localCss>
+		<link rel="stylesheet" href="${localPath}/resources/css/${localCss}"/>
+	</#list>
+
+
+	<#-- jQuery JavaScript -->
+<!-- 	<script type="text/javascript" src="${host}/js/jquery.min.js"></script> -->
+
+	<#assign staticJS = ["resources/js/jquery-1.10.2.js","resources/js/kendo.web.js","resources/js/kendo.culture.zh-CN.min.js","resources/js/global.js","resources/js/common.js","resources/js/suitabs.min.js","resources/js/jquery-ui-1.10.3.custom.js"] />
+	<#if staticJS?size gt 0>
+		<#list 0..staticJS?size-1 as index>
+			<#assign currentHost = hosts[index%hostSize]!host />
+			<#assign currentJS = staticJS[index] />
+			<script type="text/javascript" src="${currentHost}${currentJS}"></script>
+		</#list>
+	</#if>
+
+	 <!--[if IE]>
+    	<script src="${currentHost}/js/html5.js"></script>
+ 
+		<link rel="stylesheet" href="${requestPro}${currentHost}/css/ie.css" />
+		<script type="text/javascript" src="${currentHost}/js/vendor/IE7.min.js"></script>
+	<![endif]-->
+	<!-- @CLB@ -->
+    
+    <#if jsFiles?size gt 0>
+		<#list 0..jsFiles?size-1 as index>
+			<#assign currentHost = hosts[index%hostSize]!host />
+			<#assign currentJSFile = jsFiles[index] />
+			<script type="text/javascript" src="${currentHost}/${currentJSFile}"></script>
+		</#list>
+	</#if>
+	<#--list jsFiles as js>
+		<script type="text/javascript" src="${host}/${js}"></script>
+	</#list-->
+
+	<#list localJsFiles as localJs>
+		<script type="text/javascript" src="${localPath}/resources/javascripts/${localJs}"></script>
+	</#list>
+	
+	<#list remoteJsFiles as remoteJs>
+		<script type="text/javascript" src="${remoteJs}"></script>
+	</#list>
+	
+	<#nested/>
+	<#if headTag>
+		</head>
+	</#if>
+</#macro>

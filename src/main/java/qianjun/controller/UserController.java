@@ -48,7 +48,7 @@ public class UserController {
 		System.out.println(user.getName());
 		request.setAttribute("user", user);
 
-		return "showUser";
+		return "ftl/showUser";
 	}
 
 	@RequestMapping("/add")
@@ -64,16 +64,32 @@ public class UserController {
 	//==========================================================
 	//  Ajax之旅
 	//==========================================================
+	//返回对象
 	@RequestMapping("unSyn")
 	@ResponseBody
-	public AjaxResponse unSyn(String value){
-		System.out.println(value);
+	public AjaxResponse unSyn(){
 		WangQiQiDTO obj = new WangQiQiDTO("王琪琪",20);
 		 
 		List<WangQiQiDTO> girls = new ArrayList<WangQiQiDTO>();
 		obj.setGirls(girls);
 		return ControllerUtils.returnAjaxSuccessResponseWithData(obj);
 	}
+	
+	// 返回String
+	@RequestMapping("unSynString")
+	@ResponseBody
+	public String unSynString(String value){
+		 
+		return value;
+	}
+	// 返回int
+	@RequestMapping("unSynInt")
+	@ResponseBody
+	public int unSynInt(int value){
+		 
+		return value;
+	}
+	
 	
 	//==========================================================
 	@RequestMapping(value = { "/index", "/welcome**" }, method = RequestMethod.GET)
@@ -82,7 +98,7 @@ public class UserController {
 	  ModelAndView model = new ModelAndView();
 	  model.addObject("title", "Spring Security Login Form - Database Authentication");
 	  model.addObject("message", "This is default page!");
-	  model.setViewName("hello");
+	  model.setViewName("ftl/hello");
 	  return model;
  
 	}
@@ -94,7 +110,7 @@ public class UserController {
 	  ModelAndView model = new ModelAndView();
 	  model.addObject("title", "Spring Security Login Form - Database Authentication");
 	  model.addObject("message", "This page is for ROLE_ADMIN only!");
-	  model.setViewName("admin");
+	  model.setViewName("ftl/admin");
 	  return model;
  
 	}
@@ -111,7 +127,7 @@ public class UserController {
 	  if (logout != null) {
 		model.addObject("msg", "You've been logged out successfully.");
 	  }
-	  model.setViewName("login");
+	  model.setViewName("ftl/login");
  
 	  return model;
  
@@ -130,7 +146,7 @@ public class UserController {
 		model.addObject("username", userDetail.getUsername());
 	  }
  
-	  model.setViewName("403");
+	  model.setViewName("ftl/403");
 	  return model;
  
 	}

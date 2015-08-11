@@ -1,8 +1,6 @@
-<html>
-<head>
-	<script type="text/javascript"  src="resources/js/jquery-1.10.2.js"></script>
-	<script type="text/javascript"  src="resources/js/admin/admin.js"></script>
-</head>
+<html>	
+<#include "/common/macro/headIncludeMacro.html"/>
+<@headInclude localJsFiles=["admin/admin.js","tzUtil.js"]>
 <body>
 
 	<h1>Title : ${title}</h1>
@@ -23,5 +21,8 @@
 	</#if>
 	
 	<button color="red" id="ajaxBtn" param="对象的返回">请点我</button>
+	<button color="red" id="ajaxBtnString" param="对象的返回">String</button>
+	<button color="red" id="ajaxBtnInt" param=2015>Interger<h1></h1></button>
 </body>
 </html>
+</@headInclude>

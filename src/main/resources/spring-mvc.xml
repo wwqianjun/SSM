@@ -13,9 +13,14 @@
 		http://www.springframework.org/schema/task					http://www.springframework.org/schema/task/spring-task-3.1.xsd"
 	default-autowire="byName">
 
+	<!-- 配置资源文件 -->
+	<context:property-placeholder location="classpath:constants.properties" ignore-unresolvable="true" />
+	
 	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
 	<context:component-scan base-package="qianjun.controller" />
+	<mvc:resources location="/resources/javascripts/" mapping="/resources/javascripts/**"  />
 	<mvc:resources location="/resources/js/" mapping="/resources/js/**"  />
+	<mvc:resources location="/resources/css/" mapping="/resources/css/**"  />
 	
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件A -->
 	<!--<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
@@ -68,50 +73,36 @@
 	</bean> 
 	-->
 	
-		<bean id="freemarkerResolver"
+	<bean id="freemarkerResolver"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="exposeRequestAttributes" value="true" />
 		<property name="exposeSessionAttributes" value="true" />
 		<property name="allowRequestOverride" value="true" />
+		<property name="allowSessionOverride" value="true" />
+		<property name="cache" value="false" />
 		<property name="contentType" value="text/html;charset=utf-8" />
 		<property name="requestContextAttribute" value="req" />
-		<property name="allowSessionOverride" value="true" />
-	</bean>
-	<!-- freemarker config -->
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/ftl"></property>
-    	<property name="freemarkerSettings"> 
-			<props> 
-				<prop key="template_update_delay">1</prop> 
-				<prop key="defaultEncoding">UTF-8</prop> 
-				<prop key="url_escaping_charset">UTF-8</prop> 
-				<prop key="locale">zh_CN</prop> 
-				<prop key="boolean_format">true,false</prop> 
-				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop> 
-				<prop key="date_format">yyyy-MM-dd</prop> 
-				<prop key="time_format">HH:mm:ss</prop> 
-				<prop key="number_format">0.######</prop> 
-				<prop key="whitespace_stripping">true</prop> 
-			</props> 
-		</property> 
-    </bean>
-     
-    <!-- 
-      View resolvers can also be configured with ResourceBundles or XML files. If you need
-      different view resolving based on Locale, you have to use the resource bundle resolver.
-    -->
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-	    <property name="cache" value="false" />
 		<property name="prefix" value="" />
 		<property name="suffix" value=".html" />
-		<!-- FreeMarker的编码设置 -->
-		<property name="contentType" value="text/html; charset=UTF-8" />
-		<property name="exposeRequestAttributes" value="false" />
-		<property name="exposeSessionAttributes" value="false" />
-		<property name="exposeSpringMacroHelpers" value="true" /> 
-    </bean>
- 
-    
-
+	</bean>
+	<bean id="freemarkerConfiguration"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:freemarker/freemarker.properties" />
+	</bean>
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="templateLoaderPath" value="/WEB-INF/" />
+		<property name="freemarkerSettings" ref="freemarkerConfiguration" />
+		<property name="freemarkerVariables">
+		    <map>
+		        <entry key="getEnv">
+		            <bean class="qianjun.service.freemarker.impl.EnvPropertyGetterService" />
+		        </entry>
+		        
+		    </map>
+		</property>
+		
+	</bean>
+     
 </beans>

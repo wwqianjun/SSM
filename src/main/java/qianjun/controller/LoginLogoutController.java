@@ -30,7 +30,7 @@ public class LoginLogoutController {
         } else {  
             model.put("error", "");  
         }  
-        return "login";  
+        return "ftl/login";  
   
     }  
   
