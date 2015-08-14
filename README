@@ -1,0 +1,6 @@
+一：spring aop的注解方式：
+1,需要在xml中定义<aop:aspectj-autoproxy /> 必须
+2,要么在那个切面上使用@Component等标注 要么在xml文件中声明这个类<bean id="queryToDoThis" class="qianjun.service.impl.aop.QueryToDoThis" />
+
+二：springmvc
+就按照现在的那么写就好了

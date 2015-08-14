@@ -56,16 +56,16 @@ public class UserServiceTest {
 	@Test
 	public void testProxy(){
 		System.out.println();
-		User user = userService.queryUserById(2);
-		//System.out.println(user.getName());
+//		User user = userService.queryUserById(2);
+//		System.out.println(user.getName());
 //		LOG.debug("用户名{}",user.getName());
 		
 		//自己写的代理在Spring中运行
-		IUserService userService2 = new UserService();
+//		IUserService userService2 = new UserService();
 		LoggerInterceptor interceptor = new LoggerInterceptor();
 		interceptor.setTarget(userService);
 		
-		IUserService userServiceProxy = (IUserService) Proxy.newProxyInstance(userService2.getClass().getClassLoader(), new Class[]{IUserService.class}, interceptor);
+		IUserService userServiceProxy = (IUserService) Proxy.newProxyInstance(userService.getClass().getClassLoader(), new Class[]{IUserService.class}, interceptor);
 		
 		User user1 = userServiceProxy.queryUserById(2);
 		System.out.println(user1.getName());

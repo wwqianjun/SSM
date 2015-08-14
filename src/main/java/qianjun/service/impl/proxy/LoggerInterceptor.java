@@ -30,7 +30,7 @@ public class LoggerInterceptor implements InvocationHandler {
 	public void before(Method method){
 		LOG.info(method.getName() + " start...");
 	}
-	
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
 		before(method);
