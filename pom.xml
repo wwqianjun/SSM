@@ -148,6 +148,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!--<dependency>-->
+			<!--<groupId>net.sourceforge.groboutils</groupId>-->
+			<!--<artifactId>groboutils-core</artifactId>-->
+			<!--<version>4.0</version>-->
+		<!--</dependency>-->
+
 		<!-- 必须的代理 -->
 		<dependency>
 			<groupId>cglib</groupId>

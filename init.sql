@@ -47,3 +47,23 @@ mysql> create function current_seq_value(iv_seq_name varchar(50))
      end
      //
 
+
+CREATE TABLE `product_seckill_total` (
+  `id` VARCHAR(15) NOT NULL COMMENT '主键ID',
+  `total` int(11) unsigned NOT NULL COMMENT '产品数',
+  `product_code` varchar(18) NOT NULL COMMENT '产品编号',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_product_code` (`product_code`) USING BTREE COMMENT 'product_code唯一'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='手q送福利';
+
+CREATE TABLE `product_order` (
+  `id` VARCHAR(15)  NOT NULL COMMENT '主键ID',
+  `user_id` int(11) unsigned NOT NULL COMMENT '用户id',
+  `moblie` varchar(11) NOT NULL COMMENT '手机号',
+  `product_code` varchar(18) NOT NULL COMMENT '产品编号',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='手q送福利';

@@ -420,6 +420,7 @@ public class CommonConstants {
 	 */
 	public enum SequenceName{
 		USER_ID("user_id"),
+		PRODUCT_ORDER_ID("product_order"),
 		T_AIRPLUS_SEQID("airplus_id"),
 		T_ID_USER_USERID("user_id"),
 		T_ID_USER_CARD_CARDID("card_id"),

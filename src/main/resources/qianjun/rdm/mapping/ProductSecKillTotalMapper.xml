@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="qianjun.rdm.mapper.ProductSecKillTotalMapper" >
+       <resultMap id="BaseResultMap" type="qianjun.rdm.model.ProductSeckillTotal" >
+              <id column="id" property="id" jdbcType="VARCHAR" />
+              <result column="total" property="total" jdbcType="INTEGER" />
+              <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+              <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+       </resultMap>
+
+       <select id="selectTotalByProductCode" resultType="java.lang.Integer" parameterType="java.lang.String" >
+              select
+                total
+              from product_seckill_total
+              where product_code = #{productCode,jdbcType=INTEGER}
+       </select>
+
+
+
+       <update id="decryByProductCode" parameterType="java.lang.String" >
+              update product_seckill_total
+              set total = total -1
+              where product_code = #{productCode,jdbcType=INTEGER} AND total > 0
+       </update>
+</mapper>
