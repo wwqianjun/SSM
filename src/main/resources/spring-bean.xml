@@ -8,6 +8,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 
 	<!-- 资源文件 -->
 	<bean class="qianjun.common.SpringAppContext"></bean>
+	<bean class="qianjun.common.SpringAppListener"></bean>
 	<!--被类上的注解所取代-->
 	<!--bean id="queryToDoThis" class="qianjun.service.impl.aop.QueryToDoThis" /-->
 

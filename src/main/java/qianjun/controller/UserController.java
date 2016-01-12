@@ -3,6 +3,7 @@ package qianjun.controller;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +24,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import qianjun.common.AjaxResponse;
+import qianjun.common.CommonConstants;
 import qianjun.common.ControllerUtils;
+import qianjun.rdm.model.BidInfo;
 import qianjun.rdm.model.User;
+import qianjun.rdm.util.SequenceGenerator;
+import qianjun.service.IProductSecKillService;
 import qianjun.service.IUserService;
 import qianjun.service.dto.WangQiQiDTO;
 
@@ -40,6 +45,9 @@ public class UserController {
 	@Autowired
 	private IUserService userSerive;
 
+	@Autowired
+	private IProductSecKillService productSecKillService;
+
 	@RequestMapping("/showUser/{id}")
 	public String showUser(@PathVariable String id, HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
@@ -52,13 +60,24 @@ public class UserController {
 	}
 
 	@RequestMapping("/add")
+	@ResponseBody
 	public void addUser(HttpServletRequest request)
-			throws UnsupportedEncodingException {
-		User user = new User();
-		user.setName("张三");
-		user.setPassword("123456");
-
-		userSerive.addUser(user);
+			throws Exception {
+//		User user = new User();
+//		user.setName("张三");
+//		user.setPassword("123456");
+//
+//		userSerive.addUser(user);
+		for (int i = 1; i <20; i++) {
+			String mobile  = i*1000+"";
+			BidInfo bidInfo = new BidInfo();
+			bidInfo.setId(SequenceGenerator.getNextSeqWithDate12(CommonConstants.SequenceName.PRODUCT_ORDER_ID.getValue()));
+			bidInfo.setMoblie(mobile);
+			bidInfo.setUserId(i);
+			bidInfo.setProductCode("20160111");
+			bidInfo.setCreateTime(new Date());
+			productSecKillService.doSecKill(bidInfo);
+		}
 	}
 	
 	//==========================================================

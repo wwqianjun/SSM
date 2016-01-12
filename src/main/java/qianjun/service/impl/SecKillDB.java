@@ -38,9 +38,9 @@ public class SecKillDB {
     }
 
     // 单线程操作
-    public void bid() {
-        BidInfo info = bids.poll();
-        while (count-- > 0 && info != null) {
+    public boolean bid( BidInfo info) {
+
+        if (reminds) {
             // insert into table Bids values(item_id, user_id, bid_date, other)
             productOrderMapper.insert(info);
             // select count(id) from Bids where item_id = ?
@@ -48,9 +48,24 @@ public class SecKillDB {
             int produceCount = productOrderMapper.countByProductCode(info.getProductCode());
             if (produceCount >= count ){
                 reminds = false;
-                return;
+
             }
-            info = bids.poll();
+        }else{
+            reminds = false;
         }
+        return reminds;
+//        BidInfo info = bids.poll();
+//        while (count-- > 0 && info != null) {
+//            // insert into table Bids values(item_id, user_id, bid_date, other)
+//            productOrderMapper.insert(info);
+//            // select count(id) from Bids where item_id = ?
+//            // 如果数据库商品数量大约总数，则标志秒杀已完成，设置标志位reminds = false.
+//            int produceCount = productOrderMapper.countByProductCode(info.getProductCode());
+//            if (produceCount >= count ){
+//                reminds = false;
+//                return;
+//            }
+//            info = bids.poll();
+//        }
     }
 }

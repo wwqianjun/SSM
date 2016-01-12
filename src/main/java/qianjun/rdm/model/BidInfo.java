@@ -1,5 +1,6 @@
 package qianjun.rdm.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * Description:
  * Date: 2016/1/11 :16:14.
  */
-public class BidInfo {
+public class BidInfo implements Serializable{
     private String id;
 
     private Integer userId;

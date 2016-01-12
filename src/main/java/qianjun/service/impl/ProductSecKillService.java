@@ -20,15 +20,14 @@ public class ProductSecKillService implements IProductSecKillService {
     @Autowired
     private ISecKillPreProcessorService secKillPreProcessorService;
 
-    @Autowired
-    private SecKillDB secKillDB;
-
     @Override
     public int doSecKill(BidInfo bidInfo) {
         if (secKillPreProcessorService.preProcess(bidInfo)){
             secKillPreProcessorService.process(bidInfo);
+            return 1;
+        } else{
+            return 0;
         }
-//        secKillDB.bid();
-        return 0;
+
     }
 }
