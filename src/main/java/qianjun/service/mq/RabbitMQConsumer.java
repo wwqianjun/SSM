@@ -5,11 +5,9 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.Envelope;
 import com.rabbitmq.client.ShutdownSignalException;
 import org.apache.commons.lang3.SerializationUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import qianjun.common.SpringAppContext;
 import qianjun.rdm.model.BidInfo;
-import qianjun.service.impl.SecKillDB;
+import qianjun.service.impl.seckill.SecKillDB;
 
 import java.io.IOException;
 
@@ -19,7 +17,7 @@ import java.io.IOException;
  * Date: 2016/1/12 :11:54.
  */
 
-public class MqQueueConsumer extends AbstractConnectMq implements Runnable,Consumer {
+public class RabbitMQConsumer extends AbstractConnectMq implements Runnable,Consumer {
 
     /**
      * 注解spring bean
@@ -28,7 +26,7 @@ public class MqQueueConsumer extends AbstractConnectMq implements Runnable,Consu
 //    private SecKillDB secKillDB;
     private  SecKillDB secKillDB = (SecKillDB)SpringAppContext.getBean("secKillDB");
 
-    public MqQueueConsumer(String connectionName) throws IOException {
+    public RabbitMQConsumer(String connectionName) throws IOException {
         super(connectionName);
     }
 

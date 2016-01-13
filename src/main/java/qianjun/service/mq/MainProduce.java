@@ -1,10 +1,7 @@
 package qianjun.service.mq;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import qianjun.common.CommonConstants;
-import qianjun.rdm.model.BidInfo;
-import qianjun.rdm.util.SequenceGenerator;
-import qianjun.service.impl.SecKillDB;
+import qianjun.service.impl.seckill.SecKillDB;
 
 /**
  * Created by ZiJun
@@ -21,7 +18,7 @@ public class MainProduce {
             @Override
             public void run() {
                 try {
-                    MqQueueProducer producer = new MqQueueProducer(clientName);
+                    RabbitMQProducer producer = new RabbitMQProducer(clientName);
 
                     while (true){
                         if (secKillDB.bids != null && secKillDB.bids.size() >0 ) {

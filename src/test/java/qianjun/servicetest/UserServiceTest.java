@@ -20,9 +20,8 @@ import qianjun.rdm.model.User;
 import qianjun.rdm.util.SequenceGenerator;
 import qianjun.service.IProductSecKillService;
 import qianjun.service.IUserService;
-import qianjun.service.impl.ProductSecKillService;
 import qianjun.service.impl.RequestQueue;
-import qianjun.service.impl.SecKillDB;
+import qianjun.service.impl.seckill.SecKillDB;
 import qianjun.service.impl.proxy.LoggerInterceptor;
 
 import java.lang.reflect.Proxy;

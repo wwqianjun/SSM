@@ -1,4 +1,4 @@
-package qianjun.service.impl;
+package qianjun.service.impl.seckill;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

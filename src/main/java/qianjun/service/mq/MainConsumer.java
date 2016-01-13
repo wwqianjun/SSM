@@ -1,7 +1,5 @@
 package qianjun.service.mq;
 
-import org.springframework.stereotype.Component;
-
 /**
  * Created by ZiJun
  * Description:
@@ -12,7 +10,7 @@ public class MainConsumer {
     public static final String clientName = "queue";
     public MainConsumer() throws Exception{
 
-        MqQueueConsumer consumer = new MqQueueConsumer(clientName);
+        RabbitMQConsumer consumer = new RabbitMQConsumer(clientName);
         Thread consumerThread = new Thread(consumer);
         consumerThread.start();
     }

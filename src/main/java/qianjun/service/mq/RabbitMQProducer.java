@@ -10,9 +10,9 @@ import java.io.Serializable;
  * Description:
  * Date: 2016/1/12 :11:34.
  */
-public class MqQueueProducer extends AbstractConnectMq{
+public class RabbitMQProducer extends AbstractConnectMq{
 
-    public MqQueueProducer(String connectionName) throws IOException {
+    public RabbitMQProducer(String connectionName) throws IOException {
         super(connectionName);
     }
 

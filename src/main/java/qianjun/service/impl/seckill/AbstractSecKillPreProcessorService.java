@@ -1,10 +1,11 @@
-package qianjun.service.impl;
+package qianjun.service.impl.seckill;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import qianjun.service.ISecKillPreProcessorService;
 import qianjun.rdm.model.BidInfo;
+import qianjun.service.impl.RequestQueue;
 
 /**
  * Created by ZiJun
