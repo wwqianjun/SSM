@@ -12,6 +12,8 @@ public class MainConsumer {
 
         RabbitMQConsumer consumer = new RabbitMQConsumer(clientName);
         Thread consumerThread = new Thread(consumer);
+        consumerThread.setName("MainConsumer");
+//        consumerThread.setDaemon(true);
         consumerThread.start();
     }
 

@@ -8,6 +8,7 @@ import qianjun.service.mq.MainProduce;
 /**
  * Created by ZiJun
  * Description:
+ * Spring初始化完成后执行一些特定方法,需要在spring-bean.xml中申明这个类
  * Date: 2016/1/12 :18:12.
  */
 public class SpringAppListener implements ApplicationListener<ContextRefreshedEvent>
@@ -25,16 +26,13 @@ public class SpringAppListener implements ApplicationListener<ContextRefreshedEv
         //或者下面这种方式
         if(event.getApplicationContext().getDisplayName().equals("Root WebApplicationContext"))
         {
+            // 开启RabbitMQ
             MainProduce.process();
             System.out.println("生产者开启");
             MainConsumer.process();
             System.out.println("消费者开启");
         }
 
-//        MainProduce.process();
-//        System.out.println("生产者开启");
-//        MainConsumer.process();
-//        System.out.println("消费者开启");
 
     }
 

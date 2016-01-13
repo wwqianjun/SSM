@@ -17,7 +17,7 @@ import java.io.IOException;
  * Date: 2016/1/12 :11:54.
  */
 
-public class RabbitMQConsumer extends AbstractConnectMq implements Runnable,Consumer {
+public class RabbitMQConsumer extends AbstractConnectMq implements Runnable,Consumer{
 
     /**
      * 注解spring bean
@@ -64,15 +64,12 @@ public class RabbitMQConsumer extends AbstractConnectMq implements Runnable,Cons
     @Override
     public void handleDelivery(String s, Envelope envelope, BasicProperties basicProperties, byte[] body) throws IOException {
         BidInfo bidInfo = (BidInfo)SerializationUtils.deserialize(body);
-        System.out.println("Message Number "+ bidInfo + " received.");
+
         if (secKillDB == null){
             System.out.println("Message secKillDB null!");
+            System.out.println("Message Number "+ bidInfo + " received.");
         }
-        else if (secKillDB.bid(bidInfo)){
-            System.out.println("Message success consumer!");
-        }else{
-            System.out.println("Message success consumer! but no buy success!");
-        }
+        secKillDB.bid(bidInfo);
     }
 
     @Override
@@ -80,6 +77,11 @@ public class RabbitMQConsumer extends AbstractConnectMq implements Runnable,Cons
         try {
             //start consuming messages. Auto acknowledge messages.
             channel.basicConsume(connectionName, true,this);
+            while (!Thread.currentThread().isInterrupted()){
+
+            }
+            this.close();
+            System.out.println("==========RabbitMQConsumer run exit!!=======");
         } catch (IOException e) {
             e.printStackTrace();
         }

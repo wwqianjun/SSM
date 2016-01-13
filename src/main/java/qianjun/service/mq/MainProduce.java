@@ -1,8 +1,5 @@
 package qianjun.service.mq;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import qianjun.service.impl.seckill.SecKillDB;
-
 /**
  * Created by ZiJun
  * Description:
@@ -10,28 +7,12 @@ import qianjun.service.impl.seckill.SecKillDB;
  */
 public class MainProduce {
     public static final String clientName = "queue";
-    @Autowired
-    private SecKillDB secKillDB;
+
     public MainProduce() throws Exception{
-        new Thread(){
-
-            @Override
-            public void run() {
-                try {
-                    RabbitMQProducer producer = new RabbitMQProducer(clientName);
-
-                    while (true){
-                        if (secKillDB.bids != null && secKillDB.bids.size() >0 ) {
-                            producer.sendMessage(secKillDB.bids.poll());
-                        }
-//                        System.out.println("对列空");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-
+        RabbitMQProducer producer = new RabbitMQProducer(clientName);
+        Thread thread  = new Thread(producer,"MainProduce");
+//        thread.setDaemon(true);
+        thread.start();
     }
 
 

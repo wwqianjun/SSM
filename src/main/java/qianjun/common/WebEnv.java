@@ -15,7 +15,8 @@ public class WebEnv {
 		String path = null;
 		try {
 			// load default properties
-			path = "properties/web-env-default.properties";
+//			path = "properties/web-env-default.properties";
+			path = "freemarker/freemarker.properties";
 			pptConf = new Properties();
 			pptConf.load(WebEnv.class.getClassLoader().getResourceAsStream(path));
 		} catch (Exception e) {
